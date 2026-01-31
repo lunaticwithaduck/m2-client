@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(VCPKG_ROOT)' != '' AND $(_NormalizedVcpkgInstalledDir.EndsWith('$(_VcpkgSuffix)', System.StringComparison.OrdinalIgnoreCase))">
-    <VcpkgInstalledDir>$([System.IO.Path]::Combine('$(VcpkgInstalledDir)', 'installed'))$([System.IO.Path]::DirectorySeparatorChar)</VcpkgInstalledDir>
+    <VcpkgInstalledDir>$([System.IO.Path]::Combine('$(_NormalizedVcpkgInstalledDir)', 'installed'))$([System.IO.Path]::DirectorySeparatorChar)</VcpkgInstalledDir>
   </PropertyGroup>
 
   <!-- Add vcpkg include and library paths when vcpkg is being used -->
