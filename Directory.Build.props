@@ -11,7 +11,12 @@
   </PropertyGroup>
 
   <!-- Normalize older per-project VcpkgInstalledDir values that omit the 'installed' subfolder -->
-  <PropertyGroup Condition="'$(VCPKG_ROOT)' != '' AND $([System.IO.Path]::GetFullPath('$(VcpkgInstalledDir)').EndsWith('build' + [System.IO.Path]::DirectorySeparatorChar + 'vcpkg' + [System.IO.Path]::DirectorySeparatorChar, System.StringComparison.OrdinalIgnoreCase))">
+  <PropertyGroup Condition="'$(VCPKG_ROOT)' != ''">
+    <_NormalizedVcpkgInstalledDir>$([System.IO.Path]::GetFullPath('$(VcpkgInstalledDir)'))</_NormalizedVcpkgInstalledDir>
+    <_VcpkgSuffix>build$([System.IO.Path]::DirectorySeparatorChar)vcpkg$([System.IO.Path]::DirectorySeparatorChar)</_VcpkgSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(VCPKG_ROOT)' != '' AND $([System.String]::Copy('$(_NormalizedVcpkgInstalledDir)').EndsWith('$(_VcpkgSuffix)', System.StringComparison.OrdinalIgnoreCase))">
     <VcpkgInstalledDir>$(VcpkgInstalledDir)installed\</VcpkgInstalledDir>
   </PropertyGroup>
 
