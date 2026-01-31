@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <!-- Normalize older per-project VcpkgInstalledDir values that omit the 'installed' subfolder -->
-  <PropertyGroup Condition="'$(VCPKG_ROOT)' != '' AND $([System.String]::Copy('$(VcpkgInstalledDir)').ToLower().EndsWith('build\\vcpkg\\'))">
+  <PropertyGroup Condition="'$(VCPKG_ROOT)' != '' AND $([System.String]::Copy('$(VcpkgInstalledDir)').Replace('/','\\').ToLower().EndsWith('build\\vcpkg\\'))">
     <VcpkgInstalledDir>$(VcpkgInstalledDir)installed\</VcpkgInstalledDir>
   </PropertyGroup>
 
