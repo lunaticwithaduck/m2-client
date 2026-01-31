@@ -14,17 +14,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install vcpkg (pinned)
-        uses: lukka/run-vcpkg@v11
+      - name: Checkout vcpkg (pinned to manifest baseline)
+        uses: actions/checkout@v4
         with:
-          vcpkgGitCommitId: bd602277bf7fc3188b3d086b302c6840464db900
+          repository: microsoft/vcpkg
+          path: vcpkg
+          ref: bd602277bf7fc3188b3d086b302c6840464db900
 
-      - name: Install dependencies via vcpkg manifest
-        uses: lukka/run-vcpkg@v11
+      - name: Cache vcpkg artifacts
+        uses: actions/cache@v4
         with:
-          vcpkgGitCommitId: bd602277bf7fc3188b3d086b302c6840464db900
-          runVcpkgInstall: true
-          vcpkgJsonGlob: '**/vcpkg.json'
+          path: |
+            vcpkg/downloads
+            vcpkg/installed
+            vcpkg/packages
+            vcpkg/buildtrees
+          key: vcpkg-${{ runner.os }}-bd602277-${{ hashFiles('src/vcpkg.json') }}
+
+      - name: Bootstrap vcpkg
+        run: |
+          .\vcpkg\bootstrap-vcpkg.bat
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
@@ -35,6 +44,9 @@ jobs:
 
       - name: Build solution (Distribute|Win32)
         run: |
+          $env:VCPKG_ROOT = (Resolve-Path .\vcpkg)
+          $env:VCPKG_DEFAULT_TRIPLET = 'x86-windows'
+          .\vcpkg\vcpkg.exe install --triplet x86-windows --manifest-root .\src
           msbuild .\Metin2Client.sln /m /p:Configuration=Distribute /p:Platform=Win32
 
       - name: Assemble dist folder (like build.bat)
