@@ -26,9 +26,7 @@ jobs:
         with:
           path: |
             vcpkg/downloads
-            vcpkg/installed
-            vcpkg/packages
-            vcpkg/buildtrees
+            build/vcpkg
           key: vcpkg-${{ runner.os }}-bd602277-${{ hashFiles('src/vcpkg.json') }}
 
       - name: Bootstrap vcpkg
@@ -44,9 +42,12 @@ jobs:
 
       - name: Build solution (Distribute|Win32)
         run: |
-          $env:VCPKG_ROOT = (Resolve-Path .\vcpkg)
+          $vcpkgRoot = (Resolve-Path .\vcpkg).Path
+          # Set environment variables for vcpkg and MSBuild
+          $env:VCPKG_ROOT = $vcpkgRoot
           $env:VCPKG_DEFAULT_TRIPLET = 'x86-windows'
-          .\vcpkg\vcpkg.exe install --triplet x86-windows --manifest-root .\src
+          # Install vcpkg packages to build\vcpkg\ as expected by the project files
+          .\vcpkg\vcpkg.exe install --triplet x86-windows --manifest-root .\src --x-install-root=.\build\vcpkg
           msbuild .\Metin2Client.sln /m /p:Configuration=Distribute /p:Platform=Win32
 
       - name: Assemble dist folder (like build.bat)
