@@ -7,9 +7,18 @@
     <VcpkgRoot>$(VCPKG_ROOT)</VcpkgRoot>
     <VcpkgInstalledDir Condition="'$(VcpkgInstalledDir)' == ''">$(SolutionDir)build\vcpkg\</VcpkgInstalledDir>
     <VcpkgTriplet Condition="'$(VcpkgTriplet)' == ''">x86-windows</VcpkgTriplet>
-    <VcpkgEnabled>true</VcpkgEnabled>
   </PropertyGroup>
 
-  <!-- Import vcpkg props if vcpkg is enabled -->
-  <Import Project="$(VcpkgRoot)\scripts\buildsystems\msbuild\vcpkg.props" Condition="'$(VcpkgEnabled)' == 'true' AND Exists('$(VcpkgRoot)\scripts\buildsystems\msbuild\vcpkg.props')" />
+  <!-- Add vcpkg include and library paths when vcpkg is being used -->
+  <ItemDefinitionGroup Condition="'$(VCPKG_ROOT)' != ''">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(VcpkgInstalledDir)$(VcpkgTriplet)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(VcpkgInstalledDir)$(VcpkgTriplet)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(VcpkgInstalledDir)$(VcpkgTriplet)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
 </Project>

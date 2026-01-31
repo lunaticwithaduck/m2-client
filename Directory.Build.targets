@@ -2,6 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- This file is automatically imported by all projects in the solution -->
   
-  <!-- Import vcpkg targets if vcpkg is enabled -->
-  <Import Project="$(VcpkgRoot)\scripts\buildsystems\msbuild\vcpkg.targets" Condition="'$(VcpkgEnabled)' == 'true' AND Exists('$(VcpkgRoot)\scripts\buildsystems\msbuild\vcpkg.targets')" />
+  <!-- Automatically link vcpkg libraries when vcpkg is being used -->
+  <!-- The vcpkg automatic linking is handled by the include directories above -->
+  <!-- and the lib files in the vcpkg lib directory -->
 </Project>
