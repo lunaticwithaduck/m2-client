@@ -16,7 +16,7 @@
     <_VcpkgSuffix>build$([System.IO.Path]::DirectorySeparatorChar)vcpkg</_VcpkgSuffix>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(VCPKG_ROOT)' != '' AND $(_NormalizedVcpkgInstalledDir.EndsWith('$(_VcpkgSuffix)', System.StringComparison.OrdinalIgnoreCase))">
+  <PropertyGroup Condition="'$(VCPKG_ROOT)' != '' AND $(_NormalizedVcpkgInstalledDir.EndsWith('$(_VcpkgSuffix)', StringComparison.OrdinalIgnoreCase))">
     <VcpkgInstalledDir>$([System.IO.Path]::Combine('$(_NormalizedVcpkgInstalledDir)', 'installed'))$([System.IO.Path]::DirectorySeparatorChar)</VcpkgInstalledDir>
   </PropertyGroup>
 
