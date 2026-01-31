@@ -5,8 +5,8 @@
   <!-- Vcpkg integration for CI/CD -->
   <PropertyGroup Condition="'$(VCPKG_ROOT)' != ''">
     <!-- Use VcpkgInstalledDir environment variable if set, otherwise use default path -->
-    <VcpkgInstalledDir Condition="'$(VcpkgInstalledDir)' == '' AND '$(SolutionDir)' != ''">$(SolutionDir)build\vcpkg\</VcpkgInstalledDir>
-    <VcpkgInstalledDir Condition="'$(VcpkgInstalledDir)' == '' AND '$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)build\vcpkg\</VcpkgInstalledDir>
+    <VcpkgInstalledDir Condition="'$(VcpkgInstalledDir)' == '' AND '$(SolutionDir)' != ''">$(SolutionDir)build\vcpkg\installed\</VcpkgInstalledDir>
+    <VcpkgInstalledDir Condition="'$(VcpkgInstalledDir)' == '' AND '$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)build\vcpkg\installed\</VcpkgInstalledDir>
     <VcpkgTriplet Condition="'$(VcpkgTriplet)' == ''">x86-windows</VcpkgTriplet>
   </PropertyGroup>
 

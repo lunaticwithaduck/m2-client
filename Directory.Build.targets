@@ -5,4 +5,7 @@
   <!-- Automatically link vcpkg libraries when vcpkg is being used -->
   <!-- The vcpkg automatic linking is handled by the include directories above -->
   <!-- and the lib files in the vcpkg lib directory -->
+  <PropertyGroup Condition="'$(VCPKG_ROOT)' != ''">
+    <VcpkgInstalledDir Condition="'$(VcpkgInstalledDir)' == ''">$(MSBuildThisFileDirectory)build\vcpkg\installed\</VcpkgInstalledDir>
+  </PropertyGroup>
 </Project>
