@@ -26,9 +26,7 @@ jobs:
         with:
           path: |
             vcpkg/downloads
-            vcpkg/installed
-            vcpkg/packages
-            vcpkg/buildtrees
+            build/vcpkg
           key: vcpkg-${{ runner.os }}-bd602277-${{ hashFiles('src/vcpkg.json') }}
 
       - name: Bootstrap vcpkg
