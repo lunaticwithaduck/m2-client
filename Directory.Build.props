@@ -10,6 +10,11 @@
     <VcpkgTriplet Condition="'$(VcpkgTriplet)' == ''">x86-windows</VcpkgTriplet>
   </PropertyGroup>
 
+  <!-- Normalize older per-project VcpkgInstalledDir values that omit the 'installed' subfolder -->
+  <PropertyGroup Condition="'$(VCPKG_ROOT)' != '' and $([System.String]::Copy('$(VcpkgInstalledDir)').ToLower().EndsWith('build\\vcpkg\\'))">
+    <VcpkgInstalledDir>$(VcpkgInstalledDir)installed\</VcpkgInstalledDir>
+  </PropertyGroup>
+
   <!-- Add vcpkg include and library paths when vcpkg is being used -->
   <ItemDefinitionGroup Condition="'$(VCPKG_ROOT)' != '' AND '$(VcpkgInstalledDir)' != ''">
     <ClCompile>
