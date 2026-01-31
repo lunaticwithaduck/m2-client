@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- This file is automatically imported by all projects in the solution -->
+  
+  <!-- Vcpkg integration for CI/CD -->
+  <PropertyGroup Condition="'$(VCPKG_ROOT)' != ''">
+    <!-- Use VcpkgInstalledDir environment variable if set, otherwise use default path -->
+    <VcpkgInstalledDir Condition="'$(VcpkgInstalledDir)' == '' AND '$(SolutionDir)' != ''">$(SolutionDir)build\vcpkg\</VcpkgInstalledDir>
+    <VcpkgInstalledDir Condition="'$(VcpkgInstalledDir)' == '' AND '$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)build\vcpkg\</VcpkgInstalledDir>
+    <VcpkgTriplet Condition="'$(VcpkgTriplet)' == ''">x86-windows</VcpkgTriplet>
+  </PropertyGroup>
+
+  <!-- Add vcpkg include and library paths when vcpkg is being used -->
+  <ItemDefinitionGroup Condition="'$(VCPKG_ROOT)' != '' AND '$(VcpkgInstalledDir)' != ''">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(VcpkgInstalledDir)$(VcpkgTriplet)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(VcpkgInstalledDir)$(VcpkgTriplet)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(VcpkgInstalledDir)$(VcpkgTriplet)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+</Project>

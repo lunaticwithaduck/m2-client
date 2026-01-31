@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- This file is automatically imported by all projects in the solution -->
+  
+  <!-- Automatically link vcpkg libraries when vcpkg is being used -->
+  <!-- The vcpkg automatic linking is handled by the include directories above -->
+  <!-- and the lib files in the vcpkg lib directory -->
+</Project>
