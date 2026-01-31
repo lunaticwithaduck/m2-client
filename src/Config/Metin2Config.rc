@@ -1,0 +1,22 @@
+#include <wtl/atlres.h>
+
+#include "ui.rc"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "metin2.ico"
+
+#define METIN2_COMPONENT_DESCRIPTION "Metin2 Client Configuration Utility"
+#define METIN2_COMPONENT_INTERNALNAME "Config"
+#define METIN2_COMPONENT_FILENAME "config.exe"
+#define METIN2_COMPONENT_TYPE VFT_APP
+
+#include <version_info.rc>
+
+// Visual Styles manifest
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "Metin2Config.exe.manifest"

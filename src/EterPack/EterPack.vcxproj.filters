@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{28cbe5da-8a6f-41ba-81a5-785c7db06420}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{c156ef19-8b61-496c-a499-8bf66e9ca80d}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="File Providers">
+      <UniqueIdentifier>{6348898e-222d-4516-8d4e-e37f9e17d872}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EterPackManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Folder.cpp">
+      <Filter>File Providers</Filter>
+    </ClCompile>
+    <ClCompile Include="ZIP.cpp">
+      <Filter>File Providers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EterPackManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Inline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Folder.h">
+      <Filter>File Providers</Filter>
+    </ClInclude>
+    <ClInclude Include="ZIP.h">
+      <Filter>File Providers</Filter>
+    </ClInclude>
+    <ClInclude Include="FileProvider.h">
+      <Filter>File Providers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

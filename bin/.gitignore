@@ -1,0 +1,25 @@
+# Game executable
+metin2client.exe
+
+# Configuration executable
+config.exe
+
+# User configuration files
+channel.inf
+locale.cfg
+metin2.cfg
+BGM/lastplay.inf
+
+# Log files
+ErrorLog.txt
+log.txt
+syserr.txt
+
+# Game files
+pack/*.zip
+
+# Guild images
+mark/
+
+# Screenshots
+screenshot/

@@ -1,0 +1,38 @@
+{
+  "name": "metin2-client",
+  "version": "0.1.0",
+  "builtin-baseline": "bd602277bf7fc3188b3d086b302c6840464db900",
+  "dependencies": [
+    {
+      "name": "cryptopp",
+      "version>=": "8.6.0"
+    },
+    {
+      "name": "devil",
+      "version>=": "1.8.0#8"
+    },
+    {
+      "name": "directxsdk",
+      "version>=": "jun10"
+    },
+    {
+      "name": "libzip",
+      "features": [
+        "zstd"
+      ],
+      "version>=": "1.10.1"
+    },
+    {
+      "name": "lzo",
+      "version>=": "2.10#7"
+    },
+    {
+      "name": "python2",
+      "version>=": "2.7.18#3"
+    },
+    {
+      "name": "wtl",
+      "version>=": "10.0.10320#2"
+    }
+  ]
+}

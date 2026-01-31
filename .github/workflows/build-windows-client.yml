@@ -1,0 +1,71 @@
+name: build-windows-client
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install vcpkg (pinned)
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: bd602277bf7fc3188b3d086b302c6840464db900
+
+      - name: Install dependencies via vcpkg manifest
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: bd602277bf7fc3188b3d086b302c6840464db900
+          runVcpkgInstall: true
+          vcpkgJsonGlob: '**/vcpkg.json'
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install 7-Zip
+        run: |
+          choco install -y 7zip
+
+      - name: Build solution (Distribute|Win32)
+        run: |
+          msbuild .\Metin2Client.sln /m /p:Configuration=Distribute /p:Platform=Win32
+
+      - name: Assemble dist folder (like build.bat)
+        run: |
+          if (Test-Path dist) { Remove-Item -Recurse -Force dist }
+          New-Item -ItemType Directory dist | Out-Null
+
+          Copy-Item -Force .\build\bin\Distribute\UserInterface.exe .\dist\metin2.exe
+          Copy-Item -Force .\build\bin\Distribute\Config.exe .\dist\config.exe
+
+          Copy-Item -Recurse -Force .\bin\* .\dist\
+
+          if (Test-Path .\dist\.gitignore) { Remove-Item -Recurse -Force .\dist\.gitignore }
+
+          # Ensure pack Index is present
+          New-Item -ItemType Directory .\dist\pack -Force | Out-Null
+          Copy-Item -Force .\bin\pack\Index .\dist\pack\
+
+          # Zip each folder in bin\pack\* into dist\pack\<folder>.zip
+          Remove-Item -Force .\bin\pack\*.zip -ErrorAction SilentlyContinue
+          Get-ChildItem -Directory .\bin\pack | ForEach-Object {
+            $src = $_.FullName
+            $zip = Join-Path (Resolve-Path .\dist\pack) ($_.Name + '.zip')
+            Write-Host "Packing $src -> $zip"
+            & 'C:\Program Files\7-Zip\7z.exe' a -tzip $zip (Join-Path $src '*') | Out-Host
+            if ($LASTEXITCODE -ne 0) { throw "7z failed ($LASTEXITCODE)" }
+          }
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: metin2-client-dist
+          path: dist/
+          if-no-files-found: error
